@@ -1,0 +1,15 @@
+public class WeatherChecker {
+    
+    static void checkAndPrintWeather(boolean is_raining,boolean is_flooding) {
+        
+        boolean is_cyclone = is_raining && is_flooding;
+        boolean normal_rain = is_raining || is_flooding;
+        System.out.println("Is it raining and flooding?"+is_cyclone);
+        System.out.println("Is it a normal rain?"+normal_rain);
+    }
+    
+    public static void main(String[] args) {
+        
+        checkAndPrintWeather(true,false);
+    }
+}
