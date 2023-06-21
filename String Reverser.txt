@@ -1,0 +1,22 @@
+// Online Java Compiler
+class StringReverser {
+    
+    static String reverseString(String str) {
+        if(str == null) {
+            throw new IllegalArgumentException("The given input is null");
+        }
+        char str_in_char[] = str.toCharArray();
+        StringBuilder str_builder = new StringBuilder();  
+        for(int i=str_in_char.length-1;i>=0;i--) {
+            str_builder.append(str_in_char[i]);
+        }
+        return str_builder.toString();
+    }
+    
+    public static void main(String[] args) {
+        
+        String str = " Hello Zemoso Technologies ";
+        String reversed_string = reverseString(str);
+        System.out.println(reversed_string);
+    }
+}
