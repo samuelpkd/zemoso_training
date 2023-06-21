@@ -1,0 +1,40 @@
+import java.util.Scanner;
+
+public class ConsolePrinter {
+    
+    void printInConsole() {
+        
+        int rollno;
+        long phone_no;
+        String name;
+        Scanner scan = new Scanner(System.in);
+        rollno = scan.nextInt();
+        name = scan.nextLine();
+        phone_no = scan.nextLong();
+        Student student = new Student(rollno,name,phone_no);
+        System.out.println(student);
+    }
+    
+    public static void main(String[] args) {
+        
+        ConsolePrinter printer = new ConsolePrinter();
+        printer.printInConsole();
+    }
+}
+
+class Student {
+    int roll_no;
+    long phone_no;
+    String name;
+    
+    Student(int roll_no,String name,long phone_no) {
+        this.roll_no = roll_no;
+        this.name = name;
+        this.phone_no = phone_no;
+    }
+    
+    @Override
+    public String toString() {
+        return this.roll_no + "  " + this.name +"  "+this.phone_no;
+    }
+}
