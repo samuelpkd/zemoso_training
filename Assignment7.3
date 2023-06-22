@@ -1,0 +1,98 @@
+interface Banker {
+    
+    void collectCash();
+    void submitCash();
+}
+
+interface Engineer {
+    void makePlans();
+    void buildProject();
+}
+
+interface Doctor {
+    void diagonizePatient();
+    void prescribeMedicine();
+}
+
+class Tax {
+    void payTax() {
+        System.out.println("Paying Tax");
+    }   
+}
+
+interface Profession extends Banker,Engineer,Doctor{
+    
+    void work();
+}
+
+class Employer extends Tax implements Profession {
+    
+    @Override
+    public void collectCash() {
+        System.out.println("Collecting cash");
+    }
+    
+    @Override
+    public void makePlans() {
+        System.out.println("Making Plans");
+    }
+    
+    @Override
+    public void diagonizePatient() {
+        System.out.println(" Diagonizing Patients ");
+    }
+    
+    @Override
+    public void work() {
+        System.out.println(" Working ");
+    }
+    
+    @Override
+    public void submitCash() {
+        System.out.println("Submitting cash");
+    }
+    
+    @Override
+    public void buildProject() {
+        System.out.println("Building Projects");
+    }
+    
+    @Override
+    public void prescribeMedicine() {
+        System.out.println(" Prescribing Medicine ");
+    }
+
+}
+
+class EmployeeCaller {
+    
+    public static void callBanker(Banker banker) {
+        
+        ((Employer)banker).payTax();
+        banker.collectCash();
+        banker.submitCash();
+    }
+    
+    public static void callDoctor(Doctor doctor) {
+        
+        doctor.diagonizePatient();
+        doctor.prescribeMedicine();
+    }
+    
+    public static void callEngineer(Engineer engineer) {
+        engineer.makePlans();
+        engineer.buildProject();
+    }
+    
+    public static void main(String[] args) {
+        
+        Employer employer = new Employer();
+        employer.work();
+        employer.payTax();
+        callBanker(employer);
+        callDoctor(employer);
+        callEngineer(employer);
+    }
+    
+}
+
