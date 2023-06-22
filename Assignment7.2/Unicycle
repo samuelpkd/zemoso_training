@@ -1,0 +1,6 @@
+class Unicycle extends Cycle{
+    
+    public void balance() {
+        System.out.println(" Balance using single wheel ");
+    }
+}
