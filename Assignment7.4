@@ -1,0 +1,48 @@
+interface Cycle {
+    void balanceCycle();
+}
+
+class Unicycle implements Cycle {
+    
+    public void balanceCycle() {
+        System.out.println(" Balance using a single wheel ");
+    }
+}
+
+class Bicycle implements Cycle {
+    
+    public void balanceCycle() {
+        System.out.println(" Balance using two wheels ");
+    }
+}
+
+class Tricycle implements Cycle {
+    
+    public void balanceCycle() {
+        System.out.println(" No balance problem ");
+    }
+}
+
+class CycleFactory {
+    
+    public Cycle getCycleInstance(String instance_type) {
+        
+        if(instance_type.equals("bicycle")) {
+            return new Bicycle();
+        } else if(instance_type.equals("unicycle")) {
+            return new Unicycle();
+        } else {
+            return new Tricycle();
+        }
+    }
+}
+
+class CycleCaller {
+
+    public static void main(String args[]) {
+        
+        CycleFactory factory = new CycleFactory();
+        Cycle cycle = factory.getCycleInstance("bicycle");
+        cycle.balanceCycle();
+    }    
+}    
