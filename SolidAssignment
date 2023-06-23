@@ -1,0 +1,238 @@
+class Student {
+    
+    private String name;
+    private int age;
+    private String gender;
+    private String email;
+    private long phone_no;
+    
+    Student(String name,int age,String gender,String email,long phone_no) {
+        this.name = name;
+        this.age = age;
+        this.gender = gender;
+        this.email = email;
+        this.phone_no = phone_no;
+    }
+    
+    @Override
+    public String toString() {
+        return  " Name : " +this.name + " Gender :" + this.gender +" Age :  "+this.age+" Email :  "+this.email +" Phone : "+this.phone_no;
+    }
+}
+
+class Marksheet {
+    
+    private double hsc;
+    private double ssc;
+    private double kvpy;
+    
+    Marksheet(double hsc,double ssc,double kvpy) {
+        this.hsc = hsc;
+        this.ssc = ssc;
+        this.kvpy = kvpy;
+    }
+    
+    @Override
+    public String toString() {
+        return " HSC: "+ this.hsc + " SSC : " + this.ssc +" KVPY : "+this.kvpy;
+    }
+}
+
+class Recommendation {
+    
+    private String name;
+    private String designation;
+    
+    Recommendation(String name,String designation) {
+        this.name = name;
+        this.designation = designation;
+    }
+    
+    @Override
+    public String toString() {
+        return this.name + "  " + this.designation;
+    }
+}
+
+class Entrance {
+    
+    private int entrance_id;
+    private int rank;
+    
+    Entrance(int entrance_id,int rank) {
+        this.entrance_id = entrance_id;
+        this.rank = rank;
+    }
+    
+    @Override
+    public String toString() {
+        return this.entrance_id + "  " + this.rank;
+    }
+}
+
+class Tier1CollegeApplicationService implements PersonalDetail,EntranceDetail,RecommendationDetail {
+    
+   @Override 
+   public Student getStudentDetails() {
+       return new Student("samuel",21,
+            "Male","samuel@gmail.com",909098);
+    }
+    
+   @Override 
+   public Marksheet getMarksheetDetails() {
+       return new Marksheet(90.5,92.5,97.5);
+    }
+    
+   @Override 
+   public Entrance getEntranceDetails() {
+       return new Entrance(10110,1002);
+    }
+    
+    @Override 
+    public Recommendation getRecommendationDetails() {
+        return new Recommendation("harish","Principal"); 
+    }
+}
+
+class Tier2CollegeApplicationService implements PersonalDetail,RecommendationDetail {
+   
+   @Override 
+   public Student getStudentDetails() {
+       
+       return new Student("samuel",21,
+            "Male","samuel@gmail.com",909098);
+    }
+    
+   @Override 
+   public Marksheet getMarksheetDetails() {
+       return new Marksheet(90.5,92.5,97.5);
+   }
+   
+   @Override 
+   public Recommendation getRecommendationDetails() {
+        return new Recommendation("harish","Principal"); 
+   }
+}
+
+class Tier3CollegeApplicationService implements PersonalDetail {
+   
+   @Override 
+   public Student getStudentDetails() {
+       
+       return new Student("samuel",21,
+            "Male","samuel@gmail.com",90909);
+    }
+    
+   @Override 
+   public Marksheet getMarksheetDetails() {
+       return new Marksheet(90.5,92.5,97.5);
+    } 
+   
+}
+
+
+
+interface PersonalDetail {
+
+    Student getStudentDetails();
+    Marksheet getMarksheetDetails();
+}
+
+interface EntranceDetail {
+    Entrance getEntranceDetails();
+}
+
+interface RecommendationDetail {
+    Recommendation getRecommendationDetails();
+}
+
+class StudentConstant {
+    public static final String TIERI = "Tier1";
+    public static final String TIERII = "Tier2";
+    public static final String TIERIII = "Tier3";
+    
+}
+class StudentController {
+    
+    void makeApplication(Student student,String type) {
+        Student student_applied;
+        Marksheet marksheet;
+        if(type == StudentConstant.TIERI) {
+            Tier1CollegeApplicationService service = new
+            Tier1College
+            ApplicationService();
+            student_applied = service.getStudentDetails();
+            marksheet = service.getMarksheetDetails();
+            Recommendation recommendation = service .getRecommendationDetails();
+            Entrance entrance = service.getEntranceDetails();
+        
+        } else if (type == StudentConstant.TIERII)    {
+            Tier2CollegeApplicationService service = new
+            Tier2CollegeApplicationService();
+            student_applied = service.getStudentDetails();
+            marksheet = service.getMarksheetDetails();
+            Recommendation recommendation = service .getRecommendationDetails();
+            
+        } else {
+            Tier3CollegeApplicationService service = new
+            Tier3CollegeApplicationService();
+            student_applied = service.getStudentDetails();
+            marksheet = service.getMarksheetDetails();
+        }
+        
+        System.out.println(" The student details are as follows...");
+        System.out.println(student_applied);
+        System.out.println(marksheet);
+        System.out.println("Application Submitted in " +type );
+    }
+}
+
+class CollegeController {
+    
+    void processApplication() {
+        
+        CollegeApplicationService service = new  CollegeApplicationService();
+        service.analyzeApplication();
+        service.updateStatus();
+        service.notifyStudent();
+    }
+}    
+
+class CollegeApplicationService {
+    
+    void analyzeApplication() {
+        System.out.println("Application Analyzed");    
+    }
+    
+    void updateStatus() {
+        System.out.println("Application Rejected as seats are full");    
+    }
+    
+    void notifyStudent() {
+        EmailService service = new EmailService();
+        service.triggerEmail();
+    }
+}
+
+class EmailService {
+    
+    public void triggerEmail() {
+        System.out.println("Email Triggered to Student");    
+    }
+}
+
+class Main {
+    public static void main(String[] args) {
+        
+        Student student = new Student("samuel",21,"Male","samuel@gmail.com",90909);
+        StudentController studentcontroller = new StudentController();
+        studentcontroller.makeApplication(student,"tier1");
+        System.out.println(" ");
+        studentcontroller.makeApplication(student,"tier2");
+        System.out.println(" ");
+        studentcontroller.makeApplication(student,"tier3");
+        System.out.println(" ");
+        CollegeController collegeController = new CollegeController();
+        collegeController.processApplication();
+    }
+}
